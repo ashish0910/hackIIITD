@@ -1,3 +1,3 @@
 ## TeacherAid
 
->> Contains education based project for HackIIITD.
+> Contains education based project for HackIIITD.
