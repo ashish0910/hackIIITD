@@ -1,0 +1,8 @@
+*.mp4
+*.mp3
+*.png
+*.jpeg
+*.jpg
+*.pyc
+venv
+.vscode

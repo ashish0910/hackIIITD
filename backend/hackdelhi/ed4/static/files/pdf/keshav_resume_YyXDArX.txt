@@ -1,0 +1,86 @@
+Keshav Vinayak Jha
+http://keshavvinayak01.github.io
+Github : https://github.com/keshavvinayak01
+
+Email : keshavvinayakjha@gmail.com
+Mobile : +91 7678442691
+
+Education
+• Guru Gobind Singh Indraprastha University
+
+Bachelor of Technology in Electronics and Communications; GPA: 3.13 (7.83/10)
+
+• Cambridge School Indirapuram
+
+PCM with Computer Science; Percentage:87
+
+Dwarka, New Delhi
+Aug. 2017 – Current
+Ghaziabad, Uttar Pradesh
+Aug. 2000 – July. 2017
+
+Experience
+• Datsme
+
+Web Developer
+
+NSUT (Formerly NSIT)
+Sept 2018 - Jan 2019
+◦ https://datsme.io: Built the Front end website of this NSUT incubated startup, which consists of 15+ custom
+
+animations and effects coded in VanillaJS. The site was deployed on the cPanel of goDaddy and includes SSL
+certification.
+◦ Machine Learning and operations: Was part of the core team of this company, helped create the mapping
+algorithm for finding people nearby and grouping them using clustering algorithms. Also helped in the continous
+process of hiring new recruits and interviewing them.
+
+• vKarma
+
+Chief Technology Officer
+
+NSUT (Formerly NSIT)
+Jan 2019 - current
+
+replacing classic administration handling systems.
+
+management system, which is driven by its layer of users
+
+◦ Development: Currently building the backend logic for the website of this product, which takes an aim at
+◦ Tech Stack: Using HTML/CSS/JavaScript coupled with Python-Django and Google Analytics to create the
+◦ FrontEnd Development: Created the Temporary Front End website of vKarma (vkarmadev.github.io), used
+◦ Management: Responsible in the hiring process of new interns and team members, currently working with 3
+◦ Attendance System: Working on creating an RFID based attendance management system using esp 8266
+
+wordpress and custom css to create a simple view
+
+website and android developers under my team.
+
+mounted on nodeMCU, and corresponding sensors with blank RFID tags.
+
+Projects
+• StackOverflow Chatbot: Used jupyter notebooks and python to create a chatbot which answers queries regarding
+
+programming by pointing the user to exact stackOverflow links. Used the pre-trained neural net provided by ChatterBot
+and self made intent- recognizer,tf-idf and other algorithms to scaffold out this bot hosted on telegram using
+amazon-EC2
+
+• Dramatic Chatbot: Used self made GRU networks with and without variational attention to create a chatbot. The
+
+dataset was provided by openSubs movies dataset and Cornell, Used the Drama category specifically to train in the
+notebooks hosted on github.
+
+• Blog post: Used Django and front end tools to create a Blog post which lets users sign up, create posts, comment on
+
+them, and maintain a profile which includes their profile pic,bio and other details.
+
+• Native Restaurant: Used React-Native (CRNA) and expo-cli to create an application for a fictious Restaurant, which
+
+lets users signup, comment, favourite their dishes, and book reservations. Made use of Redux to maintain states.
+
+Programming Skills
+• Languages: Python, Javascript, C++, HTML/CSS
+• Technologies: React/Redux, NodeJS, MongoDB, Django, git, TensorFlow, PyTorch
+
+——————————————-
+
+
