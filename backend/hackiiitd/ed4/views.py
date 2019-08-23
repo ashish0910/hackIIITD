@@ -5,27 +5,41 @@ from pdf_to_video import *
 from .models import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import serializers, viewsets, routers
+from rest_framework import serializers, viewsets, routers, permissions
+import os
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files import File
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 
-class PostFileSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = PostFile
-        fields = ('document')
+class CsrfExemptSessionAuthentication(SessionAuthentication):
 
-class PostFileSet(viewsets.ModelViewSet):
-    queryset = PostFile.objects.all()
-    serializer_class = PostFileSerializer
-
-class VidTextFileSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = VidTextFile
-        fields = ('document','video','text')
-
-class VidTextFileSet(viewsets.ModelViewSet):
-    queryset = VidTextFile.objects.all()
-    serializer_class = VidTextFileSerializer
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 
 
+class AllowAll(permissions.BasePermission):
+    def has_object_permissions(self, request, view, obj):
+        return True        
+
+        
+class SaveTxtFile(APIView):
+    permission_classes = [AllowAll]
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+    def post(self, request):
+        text = request.data.get('txt_string')
+        count = PostFile.objects.count()
+        print(text)
+        print('*'*100)
+        file = open("ed4/static/files/api_files/{}.txt".format(str(count)), "w")
+        file.write(text)
+        file.close()
+        file = open("ed4/static/files/api_files/{}.txt".format(str(count)), 'r')
+        post = PostFile.objects.create(document = File(file))
+        get_file_name(post.document.url,post)
+        print('*'*100, "file generating done")
+        os.remove("ed4/static/files/api_files/{}.txt".format(str(count)))
+        print('*'*100, "File removed ! ")
+        file.close()
 
 def HomeView(request):
     postfile = PostFile.objects.all()

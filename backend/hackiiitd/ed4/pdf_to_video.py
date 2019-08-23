@@ -18,6 +18,9 @@ import gensim
 from gensim import corpora
 import google_image_download as image_downloader
 import shutil
+import PIL.Image as Image   
+# import Image
+
 stop = set(stopwords.words('english'))
 lemma = WordNetLemmatizer()
 _FPS=24
@@ -231,14 +234,12 @@ def get_file_name(a,file_obj):
         if not os.path.exists(video_dir):
             os.mkdir(video_dir)
         print "creating "+str(len(text_sentences))+" audio files "
+
         for i in range(0,len(text_sentences)):
-            try : 
-                tts = gTTS(text=text_sentences[i], lang='en', slow=False)
-                tts.save(audio_dir+'/'+str(i)+'.mp3')
-                print '\n',text_sentences[i],'\n'
-                print "created "+ str(i)+ " audio file"
-            except:
-                continue
+            tts = gTTS(text=text_sentences[i], lang='en', slow=False)
+            tts.save(audio_dir+'/'+str(i)+'.mp3')
+            print '\n',text_sentences[i],'\n'   
+            print "created "+ str(i)+ " audio file"
 
         text_clip_list=[]
         audio_clip_list=[]
@@ -252,7 +253,7 @@ def get_file_name(a,file_obj):
                 sent_audio_clip=AudioFileClip(audio_dir+'/'+str(i)+'.mp3')
                 print "length of audio: "+str(i)+" = ",sent_audio_clip.duration
                 audio_clip_list.append(sent_audio_clip)
-                sent_txt_clip = TextClip(format_text(text_sentences[i]),font='Courier-Bold',fontsize=200,color='yellow',bg_color='black',stroke_width=30).set_pos('bottom').set_duration(sent_audio_clip.duration).resize(width=1000)
+                sent_txt_clip = TextClip(format_text(text_sentences[i]),font='Courier-Bold',fontsize=350,color='yellow',bg_color='black',stroke_width=80).set_pos('bottom').set_duration(sent_audio_clip.duration).resize(width=2000)
                 text_clip_list.append(sent_txt_clip)
             except:
                 continue
@@ -270,15 +271,26 @@ def get_file_name(a,file_obj):
         print s_file_names
 
         # minimum_image_size=1200
+        
+        size = (1366, 768)
+        im = Image.open('ed4/static/files/picture/black1.jpg')    
+        im.resize(size, Image.ANTIALIAS)
+        im.save('ed4/static/files/picture/black1.jpg', "JPEG")
+
         video_clip_list=[]
         black_clip=ImageClip('ed4/static/files/picture/black1.jpg').set_duration(0.1).set_fps(_FPS)
         video_clip_list.append(black_clip)
         black = 'ed4/static/files/picture/black1.jpg'
+
+
         title_clip_list = []
         if number_of_images > 0:
             for f in s_file_names:
+                im = Image.open(picture_dir+'/'+f)    
+                im.resize(size, Image.ANTIALIAS)
+                im.save(picture_dir+'/'+f, "JPEG")
                 temp_clip=ImageClip(picture_dir+'/'+f).set_duration(audio_clip.duration/number_of_images).set_position('center').set_fps(_FPS).crossfadein(0.5)
-                name_txt_clip = TextClip(format_text(' '.join([word[:1].upper()+word[1:] for word in f.split('/')[0].split('_')])),font='Courier-Bold',fontsize=200,color='yellow',bg_color='black',stroke_width=30).set_position('top').set_duration(audio_clip.duration/number_of_images).resize(height=30)
+                name_txt_clip = TextClip(format_text(' '.join([word[:1].upper()+word[1:] for word in f.split('/')[0].split('_')])),font='Courier-Bold',fontsize=350,color='yellow',bg_color='black',stroke_width=30).set_position('top').set_duration(audio_clip.duration/number_of_images).resize(height=60)
                 title_clip_list.append(name_txt_clip)
                 # temp_clip = CompositeVideoClip([temp1_clip,name_txt_clip])
                 video_clip_list.append(temp_clip)
@@ -297,6 +309,7 @@ def get_file_name(a,file_obj):
         # resize_text_clip_list = []
         # for sent_txt_clip in text_clip_list:
         #     resize_text_clip_list.append(sent_txt_clip.resize(width=minimum_image_size))
+        print('*'*100, text_clip_list)
         txt_clip=concatenate_videoclips(text_clip_list).set_position('bottom')
         if len(title_clip_list) > 0:
             title_clip = concatenate_videoclips(title_clip_list).set_position('top')
@@ -350,8 +363,3 @@ def get_file_name(a,file_obj):
 
 
     # shutil.rmtree(video_dir)
-
-
-
-
-

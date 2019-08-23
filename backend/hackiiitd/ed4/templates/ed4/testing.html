@@ -35,7 +35,7 @@
   //       words.appendChild(p);
   //     }
   // });
-
+  var content = '';
   recognition.addEventListener('result',function(event){
     var current = event.resultIndex;
     var transcript = event.results[current][0].transcript;
@@ -45,13 +45,21 @@
     if(p.textContent.trim()=='stop'){
       recognition.stop();
       console.log("stop");
-      var fake = document.createElement('a');
-      fake.href = "{% url 'home' %}";
-      console.log(fake)
-      fake.click();
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", 'http://127.0.0.1:8000/generatetext', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({
+          'txt_string' : content
+      }));
+      console.log(xhr.response)
+      console.log(xhr);
+      console.log(content)
+      
 
     } else {
       words.appendChild(p);
+      content = content + p.textContent + "." ;
+      content = content.trim() ;
     }
     
   });
