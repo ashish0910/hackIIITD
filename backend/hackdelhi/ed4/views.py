@@ -50,3 +50,7 @@ def HomeView(request):
         form = PostFileForm()
 
     return render(request,'ed4/home.html',{'form': form, 'pdfs_and_videos' : zip(range(1,i+1),pdfs,videoFiles)})
+
+
+def TestView(request):
+    return render(request, 'ed4/testing.html')
