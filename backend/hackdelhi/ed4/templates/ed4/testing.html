@@ -41,9 +41,15 @@
     var transcript = event.results[current][0].transcript;
     p = document.createElement('p');
     p.textContent = transcript;
-    if(p.textContent=='stop'){
+    console.log(p.textContent);
+    if(p.textContent.trim()=='stop'){
       recognition.stop();
       console.log("stop");
+      var fake = document.createElement('a');
+      fake.href = "{% url 'home' %}";
+      console.log(fake)
+      fake.click();
+
     } else {
       words.appendChild(p);
     }
