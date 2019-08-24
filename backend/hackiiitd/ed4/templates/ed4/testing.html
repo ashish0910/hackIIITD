@@ -51,10 +51,10 @@
       xhr.send(JSON.stringify({
           'txt_string' : content
       }));
-      console.log(xhr.response)
-      console.log(xhr);
-      console.log(content)
-      
+      var fake = document.createElement('a');
+      fake.href = "{% url 'home' %}";
+      console.log(fake)
+      fake.click();
 
     } else {
       words.appendChild(p);

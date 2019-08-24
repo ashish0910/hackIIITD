@@ -74,6 +74,7 @@ def convert_txt_to_clean(fname):
     fw.write(full_text.replace('Fig.', 'Figure'))
     fw.close()
     print "conversion from TXT to Clean TXT done!\n"
+    return full_text
 
 def format_text(string): #break in to lines to fit the screen
     words=string.split()
@@ -190,12 +191,12 @@ def get_file_name(a,file_obj):
     filename = 'ed4/static/' + a
     path = filename
     infile = filename
-    print(["INFILE"]*10,infile)
-    full_text_messy = convert_pdf_to_txt(infile)
-    fw = open(infile[:-4]+'.txt', 'w')
-    fw.write(full_text_messy)
-    fw.close()
-    convert_txt_to_clean(infile)
+    if(not filename.split('.')[1] == 'txt'):
+        full_text_messy = convert_pdf_to_txt(infile)
+        fw = open(infile[:-4]+'.txt', 'w')
+        fw.write(full_text_messy)
+        fw.close()
+    full_text = convert_txt_to_clean(infile)
     audio_dir = 'ed4/static/files/audio/tmp'
     picture_dir = 'ed4/static/files/picture/tmp'
     video_dir = 'ed4/static/files/video/tmp'
@@ -358,7 +359,7 @@ def get_file_name(a,file_obj):
     video_clip.write_videofile(directory_file,codec='libx264',fps=_FPS)
 
     VidTextFile.objects.create(document=file_obj,
-        video='files/video-finished/' + infile.split('/')[-1].split('.')[0]+'.mp4',text=full_text_messy)
+        video='files/video-finished/' + infile.split('/')[-1].split('.')[0]+'.mp4',text=full_text)
 
 
 

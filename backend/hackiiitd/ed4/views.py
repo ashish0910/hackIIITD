@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render,redirect
 from .forms import *
+from django.http import HttpResponseRedirect
 from pdf_to_video import *
 from .models import *
 from rest_framework.response import Response
@@ -8,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework import serializers, viewsets, routers, permissions
 import os
 from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse_lazy
 from django.core.files import File
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 
@@ -35,11 +37,26 @@ class SaveTxtFile(APIView):
         file.close()
         file = open("ed4/static/files/api_files/{}.txt".format(str(count)), 'r')
         post = PostFile.objects.create(document = File(file))
-        get_file_name(post.document.url,post)
-        print('*'*100, "file generating done")
+        try : 
+            get_file_name(post.document.url,post)
+        except Exception, e : 
+            return Response({"response" : "error", "message" : str(e)})
         os.remove("ed4/static/files/api_files/{}.txt".format(str(count)))
-        print('*'*100, "File removed ! ")
         file.close()
+        postfile = PostFile.objects.all()
+        videoFiles = []
+        pdfs = []
+        i=0
+        for obj in postfile:
+            try:
+                videoFiles.append(VidTextFile.objects.get(document=obj))
+                pdfs.append(obj)
+                i += 1
+            except:
+                pass
+        form = PostFileForm()
+        return render(request,'ed4/home.html',{'form': form, 'pdfs_and_videos' : zip(range(1,i+1),pdfs,videoFiles)})
+        return Response({"response" : "success", "message" : "File Created Succesfully ! "})  
 
 def HomeView(request):
     postfile = PostFile.objects.all()
