@@ -23,7 +23,7 @@ imageio==2.4.1
 jmespath==0.9.4
 moviepy==1.0.0
 nltk==3.4.5
-numpy==1.16.1
+numpy==1.22.0
 pdfminer==20140328
 Pillow==6.1.0
 proglog==0.1.9
